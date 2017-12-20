@@ -7,7 +7,7 @@ This library refers to Yann Renaudin's [Morphism library](https://github.com/emy
 
 ## Contribution 
 
-- Twitter: [@renaudin_yann][twitter-account]
+- Twitter: [@TDeneulin][twitter-account]
 - Pull requests and stars are always welcome 🙏🏽 For bugs and feature requests, [please create an issue](https://github.com/Gmulti/morphism-php/issues)
 
 
