@@ -3,6 +3,9 @@ branches:
   - master
   - develop
 
+before_script:
+  - composer dump
+
 language: php
 php:
   - '5.6'
