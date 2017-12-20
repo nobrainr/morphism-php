@@ -1,8 +1,9 @@
 # Morphism PHP
 
 [![Build Status][travis-image]][travis-url]
-> Helps you to transform any object structure to another
-> This library refers to Yann Renaudin's [Morphism library](https://github.com/emyann/morphism)
+> Helps you to transform any object structure to another.
+
+This library refers to Yann Renaudin's [Morphism library](https://github.com/emyann/morphism)
 
 ## Contribution 
 
