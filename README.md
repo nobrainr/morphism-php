@@ -13,7 +13,7 @@ This library is inspired by Yann Renaudin's : [Morphism library](https://github.
 
 ## Getting started 🚀 
 
-Install `morphism-php` using composer (soon).
+Install `morphism-php` using composer : `composer require gmulti/morphism-php`.
 
 ```php
 use Morphism\Morphism;
