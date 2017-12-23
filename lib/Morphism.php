@@ -67,11 +67,18 @@ abstract class Morphism {
 
         $reflectedClass = new \ReflectionClass($type);
 
-        if($reflectedClass->isInstantiable()){
-            $instance = $reflectedClass->newInstance();
-            return self::transformValuesFromObject($instance, Morphism::getMapper($type), $data);
-        } else {
+        if(!$reflectedClass->isInstantiable()){
             throw new \Exception($type . " is not an instantiable class.");
+        }
+
+        $instance = $reflectedClass->newInstance();
+        if(isset($data[0])){
+            return array_map(function($arr) use($instance, $type){
+                return self::transformValuesFromObject($instance, Morphism::getMapper($type), $arr);
+            }, $data);
+        }
+        else{
+            return self::transformValuesFromObject($instance, Morphism::getMapper($type), $data);
         }
     }
 }

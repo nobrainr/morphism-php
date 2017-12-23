@@ -28,8 +28,8 @@ class MorphismTest extends TestCase
                 )
             )
         );
-
     }
+
 
     public function testActionStringPath()
     {
@@ -37,7 +37,9 @@ class MorphismTest extends TestCase
             "city" => "address.city"
         );
 
-        Morphism::setMapper("User", $schema);
+        if(!Morphism::exists("User")){
+            Morphism::setMapper("User", $schema);
+        }
         $result = Morphism::map("User", $this->data);
 
         $this->assertEquals($result->city, "New York City");
