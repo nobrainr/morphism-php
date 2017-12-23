@@ -80,6 +80,78 @@ class User {
 }
 ```
 
+### With an multidimensional array
+```php
+// Target type you want to have
+class User {
+}
+
+// Data source you want to map
+$data = array(
+    array(
+        "name"      => "Iron Man",
+        "firstName" => "Tony",
+        "lastName"  => "Stark",
+        "address" => array(
+            "city"    => "New York City",
+            "country" => "USA"
+        ),
+        "phoneNumber" => array(
+            array(
+                "type"   => "home",
+                "number" => "212 555-1234"
+            ),
+            array(
+                "type"   => "mobile",
+                "number" => "646 555-4567"
+            )
+        )
+    ),
+    array(
+        "name"      => "Spiderman",
+        "firstName" => "Peter",
+        "lastName"  => "Parker",
+        "address" => array(
+            "city"    => "New York City",
+            "country" => "USA"
+        ),
+        "phoneNumber" => array(
+            array(
+                "type"   => "home",
+                "number" => "999 999-9999"
+            )
+        )
+    )
+);
+
+// Mapping Schema ( see more examples below )
+$schema = array(
+    "city" => "address.city",
+    "name" => function($data){
+        return strtoupper($data["name"]);
+    }
+);
+
+Morphism::setMapper("User", $schema);
+
+// Map using the registered type and the registry
+$result = Morphism::map("User", $data);
+
+/// *** OUTPUT *** ///
+
+array(
+    class User {
+        public $city // string(13) "New York City"
+        public $name  // string(8) "iron man"
+    },
+    class User {
+        public $city // string(13) "New York City"
+        public $name  // string(8) "spiderman"
+    }
+)
+```
+
+
 ## License
 
 MIT © [Thomas Deneulin][twitter-account]
