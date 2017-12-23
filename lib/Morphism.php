@@ -38,10 +38,11 @@ abstract class Morphism {
      * @param array $schema
      */
     public static function setMapper($type, $schema){
-        if (!$type && !$schema) {
+        if (!$type) {
             throw new \Exception('type paramater is required when register a mapping');
-        } else if (Morphism::exists($type)) {
-            throw new \Exception(sprintf("A mapper for %s has already been registered", $type));
+        }
+        if (!$schema) {
+            throw new \Exception('schema paramater is required when register a mapping');
         }
 
         self::$registries[$type] = $schema;
@@ -71,13 +72,14 @@ abstract class Morphism {
             throw new \Exception($type . " is not an instantiable class.");
         }
 
-        $instance = $reflectedClass->newInstance();
         if(isset($data[0])){
-            return array_map(function($arr) use($instance, $type){
+            return array_map(function($arr) use($reflectedClass, $type){
+                $instance = $reflectedClass->newInstance();
                 return self::transformValuesFromObject($instance, Morphism::getMapper($type), $arr);
             }, $data);
         }
         else{
+            $instance = $reflectedClass->newInstance();
             return self::transformValuesFromObject($instance, Morphism::getMapper($type), $data);
         }
     }

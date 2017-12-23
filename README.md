@@ -151,6 +151,83 @@ array(
 )
 ```
 
+## Schema Examples
+
+### Dataset sample
+```php
+$data = array(
+    "name"      => "Iron Man",
+    "firstName" => "Tony",
+    "lastName"  => "Stark",
+    "address" => array(
+        "city"    => "New York City",
+        "country" => "USA"
+    ),
+    "phoneNumber" => array(
+        array(
+            "type"   => "home",
+            "number" => "212 555-1234"
+        ),
+        array(
+            "type"   => "mobile",
+            "number" => "646 555-4567"
+        )
+    )
+);
+
+// Target type you want to have
+class User {
+}
+```
+
+### Agregator
+
+```php
+// Schema
+$schema = array(
+    "fullName" => array("firstName", "lastName")
+);
+
+Morphism::setMapper("User", $schema);
+
+// Map using the registered type and the registry
+$result = Morphism::map("User", $data);
+
+/// *** OUTPUT *** ///
+
+class User {
+    public $fullName // "Tony Stark"
+}
+```
+
+### Computing over Flattening / Projection
+
+```php
+// Schema
+$schema = array(
+    "city" => (object) array(
+        "path" => "address.city",
+        "fn"   => function($city) {
+            return strtolower($city);
+        }
+    ),
+    "nbContacts" => function($data){
+        return count($data["phoneNumber"]);
+    }
+);
+
+Morphism::setMapper("User", $schema);
+
+// Map using the registered type and the registry
+$result = Morphism::map("User", $data);
+
+/// *** OUTPUT *** ///
+
+class User {
+    public $city // "new york city" <= strtolower
+    public $nbContacts // 2 <= computed from the object
+}
+```
 
 ## License
 

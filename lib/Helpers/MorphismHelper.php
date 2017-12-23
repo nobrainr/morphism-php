@@ -60,6 +60,7 @@ trait MorphismHelper {
      */
     protected static function transformValuesFromObject($object, $schema, $data){
         foreach($schema as $key => $target){ // iterate on every action of the schema
+
             if(is_string($target)){ // Target<String>: string path => [ target: 'source' ]
                 $indexes = explode(".", $target);
                 $object->{$key} = self::getArrayValue($data, $indexes);
