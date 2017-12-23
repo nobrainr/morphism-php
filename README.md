@@ -80,7 +80,7 @@ class User {
 }
 ```
 
-### With an multidimensional array
+### Multidimensional array
 ```php
 // Target type you want to have
 class User {
