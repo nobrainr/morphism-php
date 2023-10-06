@@ -2,6 +2,7 @@
 
 namespace Morphism\Helpers;
 
+#[\AllowDynamicProperties]
 trait MorphismHelper {
 
     /**
