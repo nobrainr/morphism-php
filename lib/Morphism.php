@@ -3,7 +3,7 @@
 namespace Morphism;
 
 use Morphism\Helpers\MorphismHelper;
-
+#[AllowDynamicProperties]
 abstract class Morphism {
 
     use MorphismHelper;
